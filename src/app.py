@@ -70,6 +70,11 @@ st.title("RAGbot")
 st.write("Ask questions about uploaded PDFs. Answers come only from retrieved chunks.")
 
 api_key = os.getenv("GROQ_API_KEY")
+if not api_key:
+    try:
+        api_key = st.secrets["GROQ_API_KEY"]
+    except Exception:
+        api_key = None
 
 if "indexed" not in st.session_state:
     st.session_state.indexed = False
